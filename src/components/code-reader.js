@@ -218,6 +218,12 @@ export class CodeReader extends HTMLElement {
     }
   }
 
+  stopScan() {
+    this.stream.getTracks().forEach(track => track.stop());
+    this.video.srcObject = null;
+    this.capturing = false;
+  }
+
   startVideo() {
     this.video.srcObject = this.stream;
   }
@@ -248,7 +254,7 @@ export class CodeReader extends HTMLElement {
 
   async decode() {
     if(this.code) {
-      cancelAnimationFrame(this.animationFrameId);
+      clearTimeout(this.animationFrameId);
       return false;
     }
 
@@ -283,21 +289,6 @@ export class CodeReader extends HTMLElement {
       }
     } catch (e) {
       console.log('error', e);
-    }
-  }
-
-  getCodeFromUrl(url) {
-    const image = document.createElement('img');
-    image.src = url;
-
-    const code = this.getCode(this.getImageData(image));
-
-    if(code && code.data !== '') {
-      setTimeout(() => {
-        this.dispatchEvent(new CustomEvent('result', {
-          detail: {code: code.data}
-        }));
-      }, 500)
     }
   }
 
