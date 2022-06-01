@@ -219,6 +219,8 @@ export class CodeReader extends HTMLElement {
   }
 
   stopScan() {
+    clearTimeout(this.scanId);
+
     this.stream.getTracks().forEach(track => track.stop());
     this.video.srcObject = null;
     this.capturing = false;
@@ -254,7 +256,7 @@ export class CodeReader extends HTMLElement {
 
   async decode() {
     if(this.code) {
-      clearTimeout(this.animationFrameId);
+      clearTimeout(this.scanId);
       return false;
     }
 
@@ -268,7 +270,7 @@ export class CodeReader extends HTMLElement {
       const code = barcodes.length > 0 ? barcodes[0] : undefined;
 
       if(code && code.rawValue !== '') {
-        clearTimeout(this.animationFrameId);
+        clearTimeout(this.scanId);
         this.code = code;
 
         this.drawFrame();
@@ -285,7 +287,7 @@ export class CodeReader extends HTMLElement {
         }, 500);
       }
       else {
-        this.animationFrameId = setTimeout(this.decode.bind(this), 1000);
+        this.scanId = setTimeout(this.decode.bind(this), 1000);
       }
     } catch (e) {
       console.log('error', e);
