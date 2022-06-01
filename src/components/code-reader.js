@@ -12,6 +12,8 @@ export class CodeReader extends HTMLElement {
           --video-width: 100%;
           --video-height: auto;
           --video-background-color: #cccccc;
+          --dialog-background-color: #ffffff;
+          --dialog-backdrop-background-color: #cecece;
         }
         
         #container {
@@ -108,11 +110,12 @@ export class CodeReader extends HTMLElement {
           border: 1px solid #cccccc;
           transform-origin: center center;
           animation: fade-in-slide-in .3s;
+          background-color: var(--dialog-background-color);
         }
     
         dialog::backdrop {
           opacity: .4;
-          background-color: #cecece;
+          background-color: var(--dialog-backdrop-background-color;
         }
     
         @keyframes fade-in-slide-in {
