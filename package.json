@@ -1,0 +1,27 @@
+{
+  "name": "web-utils",
+  "version": "0.0.1",
+  "description": "A library of reusable Web Components",
+  "main": "index.js",
+  "scripts": {
+    "start": "ws -p 8080 --spa index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "license": "ISC",
+  "devDependencies": {
+    "local-web-server": "^4.2.1"
+  },
+  "dependencies": {
+    "@dannymoerkerke/custom-element": "^1.0.0",
+    "@dannymoerkerke/material-webcomponents": "^1.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DannyMoerkerke/web-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DannyMoerkerke/web-utils/issues"
+  },
+  "homepage": "https://github.com/DannyMoerkerke/web-utils#readme"
+}

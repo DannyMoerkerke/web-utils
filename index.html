@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Web Utils</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+  </head>
+  <body>
+
+    <h3>Speech recognition</h3>
+
+    <speech-recognition interim>
+      <material-button slot="start" label="Start recognition" raised></material-button>
+      <material-button slot="stop" label="Stop recognition" raised></material-button>
+    </speech-recognition>
+
+    <h3>Speech synthesis</h3>
+
+    <material-textfield
+      type="text"
+      label="Text"
+      id="text"
+      value="This is a demo of Web Speech Synthesis"></material-textfield>
+
+    <p class="label">Choose a language</p>
+    <select id="language-select"></select>
+
+    <p class="label">Choose a voice</p>
+    <select id="voice-select"></select>
+
+    <material-button id="speak" label="Speak" raised></material-button>
+
+    <speech-synthesis></speech-synthesis>
+
+    <h3>Network information</h3>
+
+    <network-information>
+      <p slot="offline">Offline</p>
+      <p slot="online">Online</p>
+    </network-information>
+
+    <script src="index.js" type="module"></script>
+
+    <script>
+      const recognition = document.querySelector('speech-recognition');
+
+      recognition.addEventListener('result', ({detail}) => {
+        console.log(detail.result);
+      });
+
+      const synthesis = document.querySelector('speech-synthesis');
+      const text = document.querySelector('#text');
+      const voicesSelect = document.querySelector('#voice-select');
+      const languageSelect = document.querySelector('#language-select');
+      const speakButton = document.querySelector('#speak');
+
+      speakButton.addEventListener('click', () => {
+        synthesis.speak(text.value);
+      });
+
+      voicesSelect.addEventListener('change', (e) => {
+        synthesis.voice = e.target.selectedOptions[0].value;
+      });
+
+      languageSelect.addEventListener('change', (e) => {
+        synthesis.language = e.target.selectedOptions[0].value;
+
+        voicesSelect.innerHTML = synthesis.voices.reduce((acc, {voiceURI, name}) => `${acc}
+          <option value="${voiceURI}" ${voiceURI === this._voice.voiceURI ? `selected` : ``}>${name}</option>`,
+          `<option>-- pick a voice --</option>`);
+      });
+
+      synthesis.addEventListener('ready', () => {
+        languageSelect.innerHTML = synthesis.languages.reduce((acc, lang) => `${acc}
+          <option value="${lang}" ${lang === this.language ? `selected` : ``}>${lang}</option>`,
+          `<option>-- pick a language --</option>`);
+
+        voicesSelect.innerHTML = synthesis.voices.reduce((acc, {voiceURI, name}) => `${acc}
+          <option value="${voiceURI}" ${voiceURI === synthesis.voice.voiceURI ? `selected` : ``}>${name}</option>`,
+          `<option>-- pick a voice --</option>`);
+      });
+
+    </script>
+  </body>
+</html>
