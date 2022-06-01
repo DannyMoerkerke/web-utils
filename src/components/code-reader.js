@@ -210,6 +210,8 @@ export class CodeReader extends HTMLElement {
         this.stream = await navigator.mediaDevices.getUserMedia(this.constraints);
 
         this.startVideo();
+
+        this.dispatchEvent(new CustomEvent('scan-start'));
       }
     }
     catch(e) {
@@ -222,8 +224,11 @@ export class CodeReader extends HTMLElement {
     clearTimeout(this.scanId);
 
     this.stream.getTracks().forEach(track => track.stop());
+    this.stream = null;
     this.video.srcObject = null;
     this.capturing = false;
+
+    this.dispatchEvent(new CustomEvent('scan-stop'));
   }
 
   startVideo() {

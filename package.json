@@ -1,6 +1,6 @@
 {
   "name": "@dannymoerkerke/web-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A collection of Web Components to leverage the modern web platform",
   "main": "index.js",
   "scripts": {
