@@ -216,7 +216,14 @@ export class CodeReader extends HTMLElement {
     }
     catch(e) {
       console.log(e);
-      this.permissionDialog.showModal();
+
+      if(typeof this.permissionDialog.showModal === 'function') {
+        this.permissionDialog.showModal();
+      }
+      else {
+        const message = this.permissionDialog.querySelector('p').textContent;
+        alert(message);
+      }
     }
   }
 

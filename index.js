@@ -3,3 +3,5 @@ import '../../node_modules/@dannymoerkerke/material-webcomponents/src/material-t
 import './src/components/speech-recognition.js';
 import './src/components/speech-synthesis.js';
 import './src/components/network-information.js';
+import './src/components/code-reader.js';
+import './src/components/color-picker.js';
